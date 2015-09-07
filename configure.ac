@@ -4,7 +4,7 @@
 # ----------------------------------------------------------------------
 
 AC_PREREQ(2.59)
-AC_INIT([HepMC],[2.06.08],[https://savannah.cern.ch/projects/hepmc/],[HepMC])
+AC_INIT([HepMC],[2.06.09],[https://savannah.cern.ch/projects/hepmc/],[HepMC])
 AC_CANONICAL_TARGET
 AM_INIT_AUTOMAKE(1.9 foreign)
 AC_CONFIG_SRCDIR([src/GenEvent.cc])
@@ -67,9 +67,17 @@ AC_SUBST(GENSERdir)
 # ----------------------------------------------------------------------
 # Checks for programs.
 # ----------------------------------------------------------------------
+case "$CXX" in
+cl) 
+  AC_MSG_ERROR([configure is not supported for Visual C++, use cmake instead])
+  ;;
+*)
+esac
+
 AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_MAKE_SET
+AC_PROG_F77(gfortran g77 f77)
 
 # special libtool rules for Windows - work with gcc and cygwin
 AC_LIBTOOL_WIN32_DLL
@@ -105,6 +113,11 @@ AC_HEADER_STDC
 case "$target" in
 *-*-win32*)
   COPY_P="copy -p"
+  AC_MSG_WARN([we recommend using cmake instead of configure on Windows])
+  ;;
+*-*-darwin*)
+  COPY_P="cp -p"
+  AC_MSG_WARN([we recommend using cmake instead of configure on MacOSX])
   ;;
 *)
   COPY_P="cp -p"
@@ -127,6 +140,7 @@ cl)
   CXXFLAGS=" "
   AC_SUBST(CXXFLAGS)
   build_visual="yes"
+  AC_MSG_ERROR([configure is not supported for Visual C++, use cmake instead])
   ;;
 *)  
   AM_CXXFLAGS="-ansi -pedantic -Wall"
