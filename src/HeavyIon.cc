@@ -44,6 +44,7 @@ std::ostream & operator << (std::ostream & os, HeavyIon const * ion)
 	detail::output( os, 0. );
 	detail::output( os, 0. );
 	detail::output( os, 0. );
+	detail::output( os, 0. );
 	detail::output( os,'\n');
 	return os;
     }
@@ -61,6 +62,7 @@ std::ostream & operator << (std::ostream & os, HeavyIon const * ion)
     detail::output( os, ion->event_plane_angle() );
     detail::output( os, ion->eccentricity() );
     detail::output( os, ion->sigma_inel_NN() );
+    detail::output( os, ion->centrality() );
     detail::output( os,'\n');
 
     return os;
@@ -92,7 +94,7 @@ std::istream & operator >> (std::istream & is, HeavyIon * ion)
     // read values into temp variables, then create a new HeavyIon object
     int nh =0, np =0, nt =0, nc =0, 
         neut = 0, prot = 0, nw =0, nwn =0, nwnw =0;
-    float impact = 0., plane = 0., xcen = 0., inel = 0.; 
+    float impact = 0., plane = 0., xcen = 0., inel = 0., centr = 0.; 
     iline >> nh ;
     if(!iline) throw IO_Exception("HeavyIon input stream encounterd invalid data");
     iline >> np ;
@@ -119,9 +121,8 @@ std::istream & operator >> (std::istream & is, HeavyIon * ion)
     if(!iline) throw IO_Exception("HeavyIon input stream encounterd invalid data");
     iline >> inel;
     if(!iline) throw IO_Exception("HeavyIon input stream encounterd invalid data");
-    if( nh == 0 ) {
-        return is;
-    }
+    iline >> centr;
+    if(!iline) throw IO_Exception("HeavyIon input stream encountered invalid data");
     
     ion->set_Ncoll_hard(nh);
     ion->set_Npart_proj(np);
@@ -136,6 +137,7 @@ std::istream & operator >> (std::istream & is, HeavyIon * ion)
     ion->set_event_plane_angle(plane);
     ion->set_eccentricity(xcen);
     ion->set_sigma_inel_NN(inel);
+    ion->set_centrality(centr);
 
     return is;
 }
