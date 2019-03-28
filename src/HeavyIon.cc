@@ -125,10 +125,7 @@ namespace HepMC {
     // since we don't know if this event has centrality, set to zero if not found.
     iline >> cent;
     if(!iline) cent=0.;
-    if( nh == 0 ) {
-      return is;
-    }
-
+    
     ion->set_Ncoll_hard(nh);
     ion->set_Npart_proj(np);
     ion->set_Npart_targ(nt);
