@@ -16,8 +16,8 @@ Make sure cmake is in your path.
 cd <build_directory>
 
 cmake -DCMAKE_INSTALL_PREFIX=<install_dir> \
-      -Dmomentum:STRING=[MEV|GEV] \
-      -Dlength:STRING=[MM|CM] \
+      -Dmomentum=[MEV|GEV] \
+      -Dlength=[MM|CM] \
       <source_code_dir>
  (Note that files will be installed under /usr/local if you do not 
   specify a prefix.) 
@@ -99,3 +99,8 @@ make install
 Add <cmake_install_dir>/bin to your path.
 
 #-------------------------------------------------------------
+# Windows
+#-------------------------------------------------------------
+
+Please see Readme.win for Windows specific instructions
+
