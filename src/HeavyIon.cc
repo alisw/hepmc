@@ -122,8 +122,8 @@ std::istream & operator >> (std::istream & is, HeavyIon * ion)
     iline >> inel;
     if(!iline) throw IO_Exception("HeavyIon input stream encounterd invalid data");
     iline >> centr;
-    if(!iline) throw IO_Exception("HeavyIon input stream encountered invalid data");
-    
+    if(!iline) centr=0.;
+
     ion->set_Ncoll_hard(nh);
     ion->set_Npart_proj(np);
     ion->set_Npart_targ(nt);
